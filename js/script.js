@@ -62,10 +62,12 @@ $(document).ready(function() {
         }
 
         // Check for a win or draw
+        const winningPattern = checkWin();
         if (checkWin()) {
             gameActive = false;
             $('#winner').text(currentPlayer);
             $('#winner-alert').removeClass('d-none');
+            highlightWinningCells(winningPattern);
         } else if (gameBoard.every(cell => cell !== '')) {
             gameActive = false;
             $('#tie-alert').removeClass('d-none');
@@ -84,8 +86,18 @@ $(document).ready(function() {
             [0, 4, 8], [2, 4, 6]             // Diagonals
         ];
 
-        return winPatterns.some(pattern => {
-            return pattern.every(index => gameBoard[index] === currentPlayer);
+        for (const pattern of winPatterns) {
+            if (pattern.every(index => gameBoard[index] === currentPlayer)) {
+                return pattern;
+            }
+        }
+        return null;
+    }
+
+      // Function to highlight winning cells
+      function highlightWinningCells(winningPattern) {
+        winningPattern.forEach(index => {
+            $('.tic-tac-toe-cell').eq(index).addClass('winning-cell');
         });
     }
 
@@ -94,7 +106,7 @@ $(document).ready(function() {
         currentPlayer = 'X';
         gameBoard = ['', '', '', '', '', '', '', '', ''];
         gameActive = true;
-        $('.tic-tac-toe-cell').text('').removeClass('player1 player2');
+        $('.tic-tac-toe-cell').text('').removeClass('player1 player2 winning-cell');
         $('#turn-indicator').text("Player 1's turn (X)");
         $('#winner-alert').addClass('d-none');
         $('#tie-alert').addClass('d-none');

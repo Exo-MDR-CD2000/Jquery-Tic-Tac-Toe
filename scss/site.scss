@@ -22,7 +22,7 @@ html, body {
     transition: background-color 0.3s, transform 0.3s; // Added transform property
 
     &:hover {
-        background-color: #dfe56e; // Light grey for hover effect
+        background-color: #66675266; // Light grey for hover effect
         transform: scale(1.1); // Scale up on hover
     }
 
@@ -32,5 +32,9 @@ html, body {
 
     &.player2 {
         background-color: lightcoral; // Light red for player 2
+    }
+
+    &.winning-cell {
+        box-shadow: inset 0 0 0 0.25rem yellow; // Inner yellow border for winning cells
     }
 }

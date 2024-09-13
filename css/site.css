@@ -22,7 +22,7 @@ html, body {
   transition: background-color 0.3s, transform 0.3s;
 }
 .tic-tac-toe-cell:hover {
-  background-color: #dfe56e;
+  background-color: rgba(102, 103, 82, 0.4);
   transform: scale(1.1);
 }
 .tic-tac-toe-cell.player1 {
@@ -30,4 +30,7 @@ html, body {
 }
 .tic-tac-toe-cell.player2 {
   background-color: lightcoral;
+}
+.tic-tac-toe-cell.winning-cell {
+  box-shadow: inset 0 0 0 0.25rem yellow;
 }/*# sourceMappingURL=site.css.map */
