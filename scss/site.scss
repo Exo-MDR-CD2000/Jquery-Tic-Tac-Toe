@@ -1,0 +1,36 @@
+html, body {
+    height: 100%;
+}
+
+.tic-tac-toe-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem; // Changed from 10px to 1rem
+    max-width: 18.75rem; // Changed from 300px to 18.75rem
+    margin: 1.25rem auto; // Changed from 20px to 1.25rem
+}
+
+.tic-tac-toe-cell {
+    width: 6.25rem; // Changed from 100px to 6.25rem
+    height: 6.25rem; // Changed from 100px to 6.25rem
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem; // Changed from 2em to 2rem
+    border: 0.0625rem solid #000; // Changed from 1px to 0.0625rem
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s; // Added transform property
+
+    &:hover {
+        background-color: #dfe56e; // Light grey for hover effect
+        transform: scale(1.1); // Scale up on hover
+    }
+
+    &.player1 {
+        background-color: lightblue; // Light blue for player 1
+    }
+
+    &.player2 {
+        background-color: lightcoral; // Light red for player 2
+    }
+}
