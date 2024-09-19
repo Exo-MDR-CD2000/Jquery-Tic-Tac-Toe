@@ -35,26 +35,32 @@ console.log($('body'));
 
 // Game logic below:
 
+/**
+ * Initializes the game when the document is ready.
+ */
 $(document).ready(function() {
     // Initialize variables
     let currentPlayer = 'X';
     let gameBoard = ['', '', '', '', '', '', '', '', ''];
     let gameActive = true;
 
-    // Function to handle cell click
+    /**
+     * Handles the click event on a cell.
+     * @this {HTMLElement} The clicked cell element.
+     */
     function handleCellClick() {
-        const cellIndex = $(this).index();
+        const cellIndex = $(this).index(); // gets the index of the clicked cell
         
         // Check if the cell is already filled or the game is over
-        if (gameBoard[cellIndex] !== '' || !gameActive) {
+        if (gameBoard[cellIndex] !== '' || !gameActive) { // If the cell is already filled or the game is over, the function returns and does nothing.
             return;
         }
 
         // Update the game board and UI
-        gameBoard[cellIndex] = currentPlayer;
-        $(this).text(currentPlayer);
+        gameBoard[cellIndex] = currentPlayer; // updates the game board with the current player's choice
+        $(this).text(currentPlayer); // updates the UI with the current player's choice
 
-         // Add class based on the current player
+         // Adds CSS class based on the current player
          if (currentPlayer === 'X') {
             $(this).addClass('player1');
         } else {
@@ -62,15 +68,15 @@ $(document).ready(function() {
         }
 
         // Check for a win or draw
-        const winningPattern = checkWin();
-        if (checkWin()) {
-            gameActive = false;
-            $('#winner').text(currentPlayer);
-            $('#winner-alert').removeClass('d-none');
-            highlightWinningCells(winningPattern);
-        } else if (gameBoard.every(cell => cell !== '')) {
-            gameActive = false;
-            $('#tie-alert').removeClass('d-none');
+        const winningPattern = checkWin(); // calls the checkWin function to check if the current player has won
+        if (checkWin()) { // checks if the current player has won
+            gameActive = false; // we then set the gameActive variable to false to prevent further moves
+            $('#winner').text(currentPlayer); // we update the winner text in the alert
+            $('#winner-alert').removeClass('d-none'); // we then show the alert
+            highlightWinningCells(winningPattern); // highlight the winning cells
+        } else if (gameBoard.every(cell => cell !== '')) { // this checks if the game board is full
+            gameActive = false; // then we set the gameActive variable to false to prevent further moves
+            $('#tie-alert').removeClass('d-none'); // display the tie alert
         } else {
             // Switch to the next player
             currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
@@ -78,7 +84,10 @@ $(document).ready(function() {
         }
     }
 
-    // Function to check for a win
+    /**
+     * Checks if the current player has won the game.
+     * @returns {Array|null} The winning pattern if the current player has won, otherwise null.
+     */
     function checkWin() {
         const winPatterns = [
             [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
@@ -86,15 +95,19 @@ $(document).ready(function() {
             [0, 4, 8], [2, 4, 6]             // Diagonals
         ];
 
+        // Iterate over each winning pattern
         for (const pattern of winPatterns) {
+            // checks if all cells in the pattern are filled with the current player's choice
             if (pattern.every(index => gameBoard[index] === currentPlayer)) {
+                // return winning pattern if found
                 return pattern;
             }
         }
+        // return null if no winning pattern is found
         return null;
     }
 
-      // Function to highlight winning cells
+      // Function to highlight winning cells using CSS
       function highlightWinningCells(winningPattern) {
         winningPattern.forEach(index => {
             $('.tic-tac-toe-cell').eq(index).addClass('winning-cell');
